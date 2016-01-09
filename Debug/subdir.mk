@@ -7,10 +7,12 @@ C_SRCS += \
 ../rpi.c 
 
 S_UPPER_SRCS += \
+../abtasten.S \
 ../initialisieren.S \
 ../main.S 
 
 OBJS += \
+./abtasten.o \
 ./initialisieren.o \
 ./main.o \
 ./rpi.o 

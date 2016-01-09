@@ -1,6 +1,7 @@
 .extern sleep			/* external function for sleeping */
 .extern map_peripheral	/* external function for mapping the GPIO peripherals */
-.extern initialisieren	/* Initilisierungsprogramm */
+.extern initialisieren	/* Initialisierungsprogramm */
+.extern abtasten		/* programm fuer tasterbeteatigung */
 .equ GPIO_rot, 17		/* The GREEN LED is connected to GPIO_PIN 47 on the PI+ plattforms */
 .equ GPIO_gelb, 18
 .equ GPIO_gruen, 27
@@ -8,15 +9,20 @@
 .text
 .balign 4
 .global main
+.global losfahren
+.global anhalten
 .func main
 
 main:
 	/* Step 1: save registers and return address */
 	push {r4-r11, lr}
 
-	bl initialisieren // GPIO Pins in Unterprogramm initialisieren
+	bl init // GPIO Pins in Unterprogramm initialisieren, Sprung aber falsch
+	bl tast1
 
 losfahren:
+
+
 	mov r0, #1 // Schlafzeit setzen hier 1s
 
 	/* Setzen des Set Registers und damit aktivieren der LEDs */
@@ -40,7 +46,7 @@ losfahren:
 	mov r3, #(1 << (GPIO_gruen%32))
 	str r3, [r9, #(4*(10 + (GPIO_gruen/32)))]
 
-	bl end_main
+	bl tast2
 
 anhalten:
 	mov r0, #2 // Schlafzeit setzen hier 1s

@@ -1,4 +1,5 @@
 .extern map_peripheral	/* external function for mapping the GPIO peripherals */
+.extern main
 .equ GPIO_rot, 17		/* The GREEN LED is connected to GPIO_PIN 47 on the PI+ plattforms */
 .equ GPIO_gelb, 18
 .equ GPIO_gruen, 27
@@ -45,3 +46,5 @@ init:
 	str r3, [r9, #(4 * (GPIO_tast/10))]		/* do we really need this intermediate write to GPFSEL4? */
 
 	bx lr
+
+// Hier muss noch ein Ruecksprung eingefuegt werden
