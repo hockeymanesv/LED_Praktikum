@@ -18,7 +18,6 @@ main:
 	push {r4-r11, lr}
 
 	bl init // GPIO Pins in Unterprogramm initialisieren, Sprung aber falsch
-	bl tast1
 
 losfahren:
 
@@ -45,6 +44,8 @@ losfahren:
 	str r3, [r9, #(4*(10 + (GPIO_gelb/32)))]
 	mov r3, #(1 << (GPIO_gruen%32))
 	str r3, [r9, #(4*(10 + (GPIO_gruen/32)))]
+
+	orr r5, r6 //Event Detect Status wieder clearen an 25. Stelle 1 setzen --> Detect Status wird 0
 
 	bl tast2
 

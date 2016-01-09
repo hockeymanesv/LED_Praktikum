@@ -1,4 +1,5 @@
 .extern map_peripheral	/* external function for mapping the GPIO peripherals */
+.extern abstasten
 .extern main
 .equ GPIO_rot, 17		/* The GREEN LED is connected to GPIO_PIN 47 on the PI+ plattforms */
 .equ GPIO_gelb, 18
@@ -45,6 +46,13 @@ init:
 	and r3, #~(7 << ((GPIO_tast%10)*3))		/* set bits 21-23 to 000, i.e. set pin as input */
 	str r3, [r9, #(4 * (GPIO_tast/10))]		/* do we really need this intermediate write to GPFSEL4? */
 
-	bx lr
+
+	/* Rising Edge Register für GPIO25 aktivieren */
+	ldr r3, [r9, #(4*(19 + (GPIO_tast/32)))]
+	orr r3, #(1 << GPIO_tast) 				/* shiften 1 an 25. stelle*/
+	str r3, [r9, #(4*(19 + (GPIO_tast/32)))]
+
+
+	bl tast1 // zum abtasten springen
 
 // Hier muss noch ein Ruecksprung eingefuegt werden

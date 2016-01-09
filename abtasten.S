@@ -10,9 +10,10 @@
 .global tast2
 .func tast1
 /* Abtasten */
+
 tast1:
-/* benutze Rising Edge */
-ldr r5, [r9, #(4*(19 + (GPIO_tast/32)))]		/* read GPREN0 to R5 */
+/* benutze Event Detect Status */
+ldr r5, [r9, #(4*(16 + (GPIO_tast/32)))]		/* read GPREDS0 to R5 */
 mov r6, #0x2000000
 and r5, r6 // mit 2^25 verunden
 cmp r5, r6
@@ -20,12 +21,9 @@ beq losfahren
 bal tast1
 
 tast2:
-ldr r5, [r9, #(4*(19 + (GPIO_tast/32)))]		/* read GPREN0 to R5 */
+ldr r5, [r9, #(4*(16 + (GPIO_tast/32)))]		/* read GPREDS0 to R5 */
 mov r6, #0x2000000
 and r5, r6 // mit 2^25 verunden
 cmp r5, r6
 beq anhalten
 bal tast2
-
-
-// Rückspung einfügen
