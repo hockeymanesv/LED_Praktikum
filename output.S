@@ -46,13 +46,6 @@ forwards:
 
 backwards:
 	push {lr}
-	mov r3, #(1 << (PIN_GREEN%32))
-	str r3, [r9, #(4*(7 + (PIN_GREEN/32)))]
-	mov r0, #2
-	bl sleep
-	mov r3, #(1 << (PIN_GREEN%32))
-	str r3, [r9, #(4*(10 + (PIN_GREEN/32)))]
-
 	mov r3, #(1 << (PIN_YELLOW%32))
 	str r3, [r9, #(4*(7 + (PIN_YELLOW/32)))]
 	mov r0, #2
@@ -66,6 +59,13 @@ backwards:
 	bl sleep
 	mov r3, #(1 << (PIN_RED%32))
 	str r3, [r9, #(4*(10 + (PIN_RED/32)))]
+
+	mov r3, #(1 << (PIN_GREEN%32))
+	str r3, [r9, #(4*(7 + (PIN_GREEN/32)))]
+	mov r0, #2
+	bl sleep
+	mov r3, #(1 << (PIN_GREEN%32))
+	str r3, [r9, #(4*(10 + (PIN_GREEN/32)))]
 
 	mov r2, #0
 	pop {lr}
